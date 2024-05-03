@@ -1,0 +1,127 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0px;
+  box-sizing: border-box;
+}
+
+.login-button {
+  background-color: #800080;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.signup-link {
+  margin-top: 10px;
+  display: block;
+  text-decoration: none;
+  color: #800080;
+}
+
+.eye {
+  position: relative;
+  left: 333px;
+  bottom: 52px;
+  font-size: 30px;
+  color: #800080;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.eye-black {
+  color: black;
+}
+body {
+}
+
+#date {
+  top: 330px;
+}
+
+.banner-img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
+.venue {
+  width: 70%;
+  height: 900px;
+  float: right;
+  background-color: white;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ticktype {
+  width: auto;
+  height: 100px;
+  text-align: center;
+  margin-top: 0.75px;
+  background-color: #4caf50;
+  padding: 10px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for separation */
+}
+
+.venue img {
+  height: 600px;
+  width: auto;
+}
+
+.bidlist {
+  display: grid;
+  grid-template-rows: repeat(100, 1fr);
+  gap: 1px;
+  background-color: aquamarine;
+}
+
+.bid {
+  width: 30%;
+}
+
+.bidlist-cell {
+  width: 100%;
+  height: 3px;
+  background-color: #ccc;
+}
+
+.bid p {
+  color: black;
+  font-weight: bold;
+}
+
+.buy {
+  margin-left: 50px;
+  margin-top: 50px;
+  overflow: hidden;
+  display: flex;
+}
+
+.bottom_view2 {
+  display: flex;
+}
