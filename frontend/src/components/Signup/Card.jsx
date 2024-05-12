@@ -6,6 +6,7 @@ function Card({ onButtonClick }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showError, setShowError] = useState(false);
+  const [showError1, setShowError1] = useState(false);
 
   const handleNextClick = async (event) => {
     event.preventDefault(); // Prevent the form from submitting
@@ -23,9 +24,17 @@ function Card({ onButtonClick }) {
         localStorage.setItem("username", username);
         console.log(response.data); // Log the response
         setShowError(false);
+        setShowError1(false);
         onButtonClick(); // Call the onButtonClick function passed from the parent
       } catch (error) {
-        console.error("Error:", error); // Log any errors
+        console.error("Error:", error);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.error === "Username already exists"
+        ) {
+          setShowError1(true);
+        } // Log any errors
       }
     }
   };
@@ -62,6 +71,7 @@ function Card({ onButtonClick }) {
           required
         />
         {showError && <p style={{ color: "red" }}>Passwords do not match!</p>}
+        {showError1 && <p style={{ color: "red" }}>Username already exists!</p>}
         <button type="submit" className="login-button">
           Next
         </button>

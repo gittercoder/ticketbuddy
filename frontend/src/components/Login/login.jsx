@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showError, setShowError] = useState(false);
   const navigate = useNavigate(); // Get the navigate function for navigation
 
   const handleSubmit = async (e) => {
@@ -27,6 +28,7 @@ function Login() {
       } else {
         // Login failed, display error message
         console.error(data.message);
+        setShowError(true);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -61,6 +63,9 @@ function Login() {
         <div className="eye password-toggle" onClick={togglePasswordVisibility}>
           👁
         </div>
+        {showError && (
+          <p style={{ color: "red" }}>Wrong Password or Username!</p>
+        )}
         <button type="submit" className="login-button">
           Login
         </button>
