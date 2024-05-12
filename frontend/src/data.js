@@ -29,6 +29,11 @@ const tickettypes = [
     row: "A",
     type: "Normal",
   },
+  {
+    key: 1,
+    row: "A",
+    type: "Normal",
+  },
 ];
 
 //add more data

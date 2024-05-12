@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_cors import CORS
+from sqlalchemy import event
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:super@localhost/ticketbuddy'
@@ -94,25 +95,100 @@ def login():
         return jsonify({"message": "Invalid username or password"}), 401
 
 
+# creating Venue table
 
-class Item(db.Model):
-    item_id = db.Column(db.Integer, primary_key=True)
-    item_name = db.Column(db.String(100))
-    owner1 = db.Column(db.String(100))
+class Venue(db.Model):
+    v_id = db.Column(db.Integer, primary_key=True)
+    r_capacity = db.Column(db.Integer)
+    p_capacity = db.Column(db.Integer)
+    location = db.Column(db.String(255))
 
-@app.route('/items/<int:item_id>/own', methods=['POST'])
-def own_item(item_id):
-    data = request.get_json()
-    owner_name = data.get('owner_name')  # Retrieve the owner name from the request
+    def __repr__(self):
+        return f"Venue(v_id={self.v_id}, r_capacity={self.r_capacity}, p_capacity={self.p_capacity}, location='{self.location}')"
 
-    # Find the item by its ID
-    item = Item.query.get_or_404(item_id)
+    def __init__(self, r_capacity, p_capacity, location):
+        self.r_capacity = r_capacity
+        self.p_capacity = p_capacity
+        self.location = location
 
-    # Update the owner1 column
-    item.owner1 = owner_name
+
+# creating Event table
+        
+
+class Event(db.Model):
+    e_id = db.Column(db.Integer, primary_key=True)
+    v_id = db.Column(db.Integer)
+    name = db.Column(db.String(255))
+    genre = db.Column(db.String(255))
+    date = db.Column(db.Date)
+    r_price = db.Column(db.Float)
+    p_price = db.Column(db.Float)
+
+    def __repr__(self):
+        return f"Event(e_id={self.e_id}, v_id={self.v_id}, name='{self.name}', genre='{self.genre}', date='{self.date}', r_price={self.r_price}, p_price={self.p_price})"
+
+    def __init__(self, v_id, name, genre, date, r_price, p_price):
+        self.v_id = v_id
+        self.name = name
+        self.genre = genre
+        self.date = date
+        self.r_price = r_price
+        self.p_price = p_price
+        self.create_tickets()  # Automatically create tickets when an event is created
+
+    def create_tickets(self):
+        venue = Venue.query.get(self.v_id)
+        if venue:
+            r_tickets_count = min(venue.r_capacity, 250)  
+            p_tickets_count = min(venue.p_capacity, 50)  
+
+            # Create regular tickets
+            for _ in range(r_tickets_count):
+                ticket = Ticket(e_id=self.e_id, price=self.r_price, category='Regular')
+                db.session.add(ticket)
+
+            # Create premium tickets
+            for _ in range(p_tickets_count):
+                ticket = Ticket(e_id=self.e_id, price=self.p_price, category='Premium')
+                db.session.add(ticket)
+
+            db.session.commit()
+
+
+# creating Ticket table
+        
+
+class Ticket(db.Model):
+    t_id = db.Column(db.Integer, primary_key=True)
+    e_id = db.Column(db.Integer)
+    price = db.Column(db.Float)
+    bid_price = db.Column(db.Float)
+    owner = db.Column(db.String(255))
+    f_owner = db.Column(db.String(255))
+    category = db.Column(db.String(50))  
+
+    def __repr__(self):
+        return f"Ticket(t_id={self.t_id}, e_id={self.e_id}, price={self.price}, bid_price={self.bid_price}, owner='{self.owner}', f_owner='{self.f_owner}', category='{self.category}')"
+    
+
+# initializing tables
+    
+
+with app.app_context():
+    db.create_all()
+
+
+# createing events and tickets
+    
+
+@app.route('/cevent')
+def index():
+    event = Event(v_id=1, name='Example Event', genre='Example Genre', date='2024-05-15', r_price=20.0, p_price=30.0)
+    db.session.add(event)
     db.session.commit()
 
-    return jsonify({'message': f'Item {item_id} is now owned by {owner_name}'}), 200
+    return 'Event created successfully'
+
 
 if __name__ == '__main__':
     app.run()
