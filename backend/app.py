@@ -4,6 +4,7 @@ from datetime import datetime
 from flask_cors import CORS
 from sqlalchemy import event
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:super@localhost/ticketbuddy'
 db = SQLAlchemy(app)
@@ -134,7 +135,6 @@ class Event(db.Model):
         self.date = date
         self.r_price = r_price
         self.p_price = p_price
-        self.create_tickets()  # Automatically create tickets when an event is created
 
     def create_tickets(self):
         venue = Venue.query.get(self.v_id)
@@ -142,17 +142,20 @@ class Event(db.Model):
             r_tickets_count = min(venue.r_capacity, 250)  
             p_tickets_count = min(venue.p_capacity, 50)  
 
+            tickets = []
+
             # Create regular tickets
             for _ in range(r_tickets_count):
                 ticket = Ticket(e_id=self.e_id, price=self.r_price, category='Regular')
-                db.session.add(ticket)
+                tickets.append(ticket)
 
             # Create premium tickets
             for _ in range(p_tickets_count):
                 ticket = Ticket(e_id=self.e_id, price=self.p_price, category='Premium')
-                db.session.add(ticket)
+                tickets.append(ticket)
 
-            db.session.commit()
+            # Add all tickets to the session
+            db.session.add_all(tickets)
 
 
 # creating Ticket table
@@ -188,6 +191,35 @@ def index():
     db.session.commit()
 
     return 'Event created successfully'
+
+@event.listens_for(Event, 'after_insert')
+def event_after_insert(mapper, connection, target):
+    target.create_tickets()
+
+# for layout 
+
+@app.route('/api/tickets')
+def get_tickets():
+    e_id = request.args.get('e_id')  # Get e_id from query parameters
+    if e_id is None:
+        return jsonify({'error': 'e_id parameter is required'}), 400
+    
+    # Filter tickets based on e_id
+    tickets = Ticket.query.filter_by(e_id=e_id).all()
+    
+    ticket_data = [
+        {
+            't_id': ticket.t_id,
+            'e_id': ticket.e_id,
+            'price': ticket.price,
+            'bid_price': ticket.bid_price,
+            'owner': ticket.owner,
+            'f_owner': ticket.f_owner,
+            'category': ticket.category
+        }
+        for ticket in tickets
+    ]
+    return jsonify(ticket_data)
 
 
 if __name__ == '__main__':

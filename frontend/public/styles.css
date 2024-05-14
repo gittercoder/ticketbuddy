@@ -125,3 +125,48 @@ body {
 .bottom_view2 {
   display: flex;
 }
+
+/* view1 */
+.venue1 {
+  text-align: center; /* Center the seat container */
+}
+
+.seat-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px; /* Adjust the gap between seats */
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.seat {
+  width: 50px; /* Adjust seat width */
+  height: 50px; /* Adjust seat height */
+  background-color: lightgray; /* Default seat color */
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.seat.selectable {
+  background-color: lightblue; /* Color for selectable seats */
+}
+
+.seat.selected {
+  background-color: green; /* Color for selected seats */
+  color: white; /* Text color for selected seats */
+}
+
+.seat.premium {
+  background-color: yellow; /* Color for premium seats */
+  color: black; /* Text color for premium seats */
+}
+
+.seat.booked {
+  background-color: red; /* Color for seats with non-null f_owner */
+  color: white; /* Text color for seats with non-null f_owner */
+}
+
+/* view1 */
