@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import tickettypes from "../../data";
+import TTypes from "./TTypes";
 
 function View1() {
   const [tickets, setTickets] = useState([]);
@@ -72,14 +74,15 @@ function View1() {
 
   return (
     <div>
-      <h2>Stage</h2>
       <div className="venue">
         {/* Seat container */}
         <div className="seat-container">
           {/* Render seats */}
           {renderSeats()}
+          <h2 className="stage">Stage</h2>
         </div>
       </div>
+      <div>{tickettypes.map(TTypes)}</div>
     </div>
   );
 }

@@ -135,13 +135,13 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px; /* Adjust the gap between seats */
+  gap: 15px; /* Adjust the gap between seats */
   margin-top: 20px; /* Adjust margin as needed */
 }
 
 .seat {
-  width: 50px; /* Adjust seat width */
-  height: 50px; /* Adjust seat height */
+  width: 40px; /* Adjust seat width */
+  height: 40px; /* Adjust seat height */
   background-color: lightgray; /* Default seat color */
   border: 1px solid #ccc;
   display: flex;
@@ -169,4 +169,7 @@ body {
   color: white; /* Text color for seats with non-null f_owner */
 }
 
+.stage {
+  bottom: 0;
+}
 /* view1 */
