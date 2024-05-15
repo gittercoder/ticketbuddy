@@ -66,26 +66,19 @@ body {
   object-fit: cover;
 }
 
-.venue {
-  width: 70%;
-  height: 900px;
-  float: right;
-  background-color: white;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .ticktype {
   width: auto;
-  height: 100px;
+  height: fit-content;
   text-align: center;
   margin-top: 0.75px;
-  background-color: #4caf50;
+
   padding: 10px;
   border: 1px solid transparent;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for separation */
+}
+
+.ticktype p {
+  padding: 10px;
 }
 
 .venue img {
@@ -136,7 +129,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px; /* Adjust the gap between seats */
-  margin-top: 20px; /* Adjust margin as needed */
+  margin-bottom: 10px;
 }
 
 .seat {
@@ -169,7 +162,34 @@ body {
   color: white; /* Text color for seats with non-null f_owner */
 }
 
+.venue {
+  width: 70%;
+  height: 900px;
+  float: right;
+  background-color: white;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 15px;
+}
+.venue {
+  display: grid;
+  grid-template-rows: auto auto; /* Adjust row heights as needed */
+  grid-template-areas:
+    "seats"
+    "stage";
+}
+
+.seat-container {
+  grid-area: seats;
+}
+
 .stage {
-  bottom: 0;
+  grid-area: stage;
+  margin-top: 20px;
+  color: silver;
+  margin-inline-start: 40%;
 }
 /* view1 */

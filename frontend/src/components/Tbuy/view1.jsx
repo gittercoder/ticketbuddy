@@ -3,9 +3,14 @@ import axios from "axios";
 import tickettypes from "../../data";
 import TTypes from "./TTypes";
 
+let price;
+let normc;
+let premc;
+
 function View1() {
   const [tickets, setTickets] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     // Fetch tickets based on e_id from backend
@@ -26,6 +31,25 @@ function View1() {
     const highestTId = Math.max(...tickets.map((ticket) => ticket.t_id));
     return highestTId - lowestTId + 1;
   };
+
+  // Function to determine total price
+  function computeTotalPrice() {
+    let totalPrice = 0;
+    for (const seatId of selectedSeats) {
+      // Find the ticket with the corresponding t_id (assuming t_id is the seat ID)
+      const ticket = tickets.find((ticket) => ticket.t_id === seatId);
+      if (ticket) {
+        // If ticket is found, add its price to totalPrice
+        totalPrice += ticket.price;
+      }
+    }
+    return totalPrice;
+  }
+  // Update total price whenever selectedSeats change
+  useEffect(() => {
+    const newTotalPrice = computeTotalPrice();
+    setTotalPrice(newTotalPrice);
+  }, [selectedSeats]);
 
   // Helper function to check if a seat is selectable based on ticket data
   const isSeatSelectable = (seatId) => {
@@ -66,6 +90,7 @@ function View1() {
           onClick={() => isSelectable && handleSeatSelection(i)}
         >
           {i}
+          {console.log("Total price:", totalPrice)}
         </div>
       );
     }
@@ -79,10 +104,10 @@ function View1() {
         <div className="seat-container">
           {/* Render seats */}
           {renderSeats()}
-          <h2 className="stage">Stage</h2>
         </div>
+        <h2 className="stage">Stage</h2>
       </div>
-      <div>{tickettypes.map(TTypes)}</div>
+      <div>{<TTypes totalPrice={totalPrice} />}</div>
     </div>
   );
 }

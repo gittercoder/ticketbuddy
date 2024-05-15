@@ -1,4 +1,5 @@
 import React from "react";
+import { totalPrice } from "./view1";
 
 let a = false;
 
@@ -9,7 +10,8 @@ function TTypes(props) {
 
   return (
     <div class="ticktype">
-      <p>Premium</p>
+      <p>TOTAL</p>
+      <p>{props.totalPrice}</p>
       <button onCick={handleClick}>Buy Ticket</button>
     </div>
   );

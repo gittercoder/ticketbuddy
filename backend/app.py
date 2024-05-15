@@ -6,7 +6,7 @@ from sqlalchemy import event
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:supe@localhost/ticketbuddy'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:super@localhost/ticketbuddy'
 db = SQLAlchemy(app)
 CORS(app)
 
