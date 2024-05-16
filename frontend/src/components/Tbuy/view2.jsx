@@ -10,7 +10,13 @@ let bidend = true;
 
 function View2(props) {
   const [auctionResults, setAuctionResults] = useState([]);
-  const [bidamt, setBidamt] = useState("0");
+  const [bidamt, setBidamt] = useState("");
+  const selectedEventId1 = parseInt(
+    localStorage.getItem("selectedEventId"),
+    10
+  );
+  const uid = parseInt(localStorage.getItem("u_id"), 10);
+  const [message, setMessage] = useState("");
 
   const selectedEventId = localStorage.getItem("selectedEventId");
   console.log(selectedEventId);
@@ -29,11 +35,24 @@ function View2(props) {
       });
   }, []);
 
-  const handleBidConfirm = () => {
+  const handleBidConfirm = async (event) => {
+    event.preventDefault();
     // Store the value of the text field in bidamt variable
-    const bidAmount = document.querySelector(".input-field").value;
+    const bidAmount = parseFloat(document.querySelector(".input-field").value);
     setBidamt(bidAmount);
-    // You can perform any additional logic here
+
+    const data = {
+      bid_amt: bidAmount,
+      e_id: selectedEventId1,
+      u_id: uid,
+    };
+
+    try {
+      const response = await axios.post("http://localhost:5000/auction", data);
+      setMessage(response.data.message);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (

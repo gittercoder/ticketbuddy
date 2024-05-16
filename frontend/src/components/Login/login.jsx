@@ -11,6 +11,7 @@ function Login() {
     e.preventDefault();
 
     try {
+      const rep = fetch("http://localhost:5000/auction_end");
       const response = await fetch("http://localhost:5000/login", {
         method: "POST",
         headers: {

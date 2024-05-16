@@ -6,7 +6,6 @@ import Footer from "../footer";
 import View1 from "./view1";
 import View2 from "./view2";
 import { bidlist } from "../../data";
-import TTypes, { a } from "./TTypes";
 
 function Tbuy() {
   useEffect(() => {
@@ -47,7 +46,7 @@ function Tbuy() {
         date="20-05-2025"
       />
 
-      {!!allTicketsHaveFOwner ? <View1 /> : <View2 />}
+      {!allTicketsHaveFOwner ? <View1 /> : <View2 />}
 
       {/*<Footer year={new Date().getFullYear()} />*/}
     </div>

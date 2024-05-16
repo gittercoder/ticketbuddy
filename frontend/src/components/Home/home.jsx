@@ -8,6 +8,23 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [events, setEvents] = useState([]);
 
+  useEffect(() => {
+    async function fetchEvents() {
+      try {
+        const response = await fetch("http://localhost:5000/api/event");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const eventData = await response.json();
+        setEvents(eventData);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    }
+
+    fetchEvents();
+  }, []); // Empty dependency array ensures this effect runs only once after the initial render
+
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
@@ -32,6 +49,34 @@ const Home = () => {
       document.body.classList.remove("home");
     };
   }, []);
+
+  useEffect(() => {
+    // Retrieve username from localStorage
+    const username = localStorage.getItem("username");
+    if (username) {
+      fetchUserData(username);
+    } else {
+      // Handle case where username is not found in localStorage
+      console.error("Username not found in localStorage");
+    }
+  }, []);
+
+  const fetchUserData = async (username) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/user?username=${username}`
+      );
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem("u_id", data.u_id);
+      } else {
+        // Handle error from backend
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <div>

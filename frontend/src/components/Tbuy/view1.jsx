@@ -1,16 +1,35 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import tickettypes from "../../data";
-import TTypes from "./TTypes";
-
-let price;
-let normc;
-let premc;
 
 function View1() {
   const [tickets, setTickets] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [responseMessage, setResponseMessage] = useState("");
+  const selectedEventId1 = parseInt(
+    localStorage.getItem("selectedEventId"),
+    10
+  );
+  const uid = parseInt(localStorage.getItem("u_id"), 10);
+
+  const handleNoAuction = async () => {
+    const requestData = {
+      t_id: selectedSeats, // Using selectedSeats state for t_id
+      e_id: selectedEventId1, // Using selectedEventId from localStorage for e_id
+      u_id: uid,
+    };
+    console.log(selectedSeats);
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/no_auction",
+        requestData
+      );
+      setResponseMessage(response.data.message);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    window.location.reload();
+  };
 
   const selectedEventId = localStorage.getItem("selectedEventId");
   useEffect(() => {
@@ -71,9 +90,11 @@ function View1() {
 
   // Render the seats
   const renderSeats = () => {
+    const lowestTId = Math.min(...tickets.map((ticket) => ticket.t_id));
+    console.log(lowestTId);
     const numSeats = calculateNumSeats();
     const seats = [];
-    for (let i = 1; i <= numSeats; i++) {
+    for (let i = lowestTId; i < lowestTId + numSeats; i++) {
       const isSelectable = isSeatSelectable(i);
       const isSelected = selectedSeats.includes(i);
       const isPremium = tickets.some(
@@ -92,7 +113,7 @@ function View1() {
           }  ${isBooked ? "booked" : ""}`}
           onClick={() => isSelectable && handleSeatSelection(i)}
         >
-          {i}
+          {i + 1 - lowestTId}
           {console.log("Total price:", totalPrice)}
         </div>
       );
@@ -110,7 +131,13 @@ function View1() {
         </div>
         <h2 className="stage">Stage</h2>
       </div>
-      <div>{<TTypes totalPrice={totalPrice} />}</div>
+      <div>
+        <div class="ticktype">
+          <p>TOTAL</p>
+          <p>{computeTotalPrice()}</p>
+          <button onClick={handleNoAuction}>Buy Ticket</button>
+        </div>
+      </div>
     </div>
   );
 }

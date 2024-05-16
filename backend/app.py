@@ -1,20 +1,26 @@
 from flask import Flask, request, jsonify 
 from flask_sqlalchemy import SQLAlchemy
+import time
 from datetime import datetime
 from flask_cors import CORS
 from sqlalchemy import event
+from sqlalchemy import asc
+from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:super@localhost/ticketbuddy'
+app.config['SECRET_KEY']='secretkey'
 db = SQLAlchemy(app)
 CORS(app)
+bcrypt=Bcrypt(app)
 
 class User(db.Model):
     u_id = db.Column(db.Integer, primary_key=True)
     verification = db.Column(db.Boolean, default=False)
     email = db.Column(db.String(100), unique=True)
     user_name = db.Column(db.String(100), unique=True, nullable=False)
+    # name = db.Column(db.String(100), default=None)
     age = db.Column(db.Integer)
     dob = db.Column(db.Date)
     phno = db.Column(db.String(20))
@@ -47,6 +53,18 @@ def format_user(user):
         "gender": user.gender,
     }
 
+@app.route('/user', methods=['GET'])
+def get_user_id():
+    username = request.args.get('username')
+    if not username:
+        return jsonify({'error': 'Username not provided'}), 400
+
+    user = User.query.filter_by(user_name=username).first()
+    if user:
+        return jsonify({'u_id': user.u_id}), 200
+    else:
+        return jsonify({'error': 'User not found'}), 404
+    
 with app.app_context():
     db.create_all()
 
@@ -56,9 +74,8 @@ def hello():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
+    username = request.json['username']
+    password = bcrypt.generate_password_hash(request.json['password']).decode('utf-8')
 
     # Check if the username already exists
     if User.query.filter_by(user_name=username).first():
@@ -70,15 +87,6 @@ def signup():
     return jsonify({'message': 'User created successfully', 'user': formatted_user}), 201
 
 
-@app.route("/tk", methods = ['POST'])
-def create_tk():
-    user_name = request.json['user_name']
-    password = request.json['password']
-    user = User(user_name, password)
-    db.session.add(user)
-    db.session.commit()
-    return format_user(user)
-
 @app.route("/login", methods=["POST"])
 def login():
     data = request.json
@@ -88,7 +96,7 @@ def login():
     # Query the database to find the user with the provided username
     user = User.query.filter_by(user_name=user_name).first()
 
-    if user and user.password == password:
+    if user and bcrypt.check_password_hash(user.password,password):
         # Username and password are correct
         return jsonify({"message": "Login successful", "user": format_user(user)}), 200
     else:
@@ -122,21 +130,24 @@ class Event(db.Model):
     name = db.Column(db.String(255))
     genre = db.Column(db.String(255))
     date = db.Column(db.Date)
+    datetime = db.Column(db.DateTime)  # Added datetime column
     r_price = db.Column(db.Float)
     p_price = db.Column(db.Float)
     image_link = db.Column(db.String(255))  # New column for image link
+    status = db.Column(db.String(50),default='notcompleted')  # New column for status
 
     def __repr__(self):
-        return f"Event(e_id={self.e_id}, v_id={self.v_id}, name='{self.name}', genre='{self.genre}', date='{self.date}', r_price={self.r_price}, p_price={self.p_price}, image_link='{self.image_link}')"
+        return f"Event(e_id={self.e_id}, v_id={self.v_id}, name='{self.name}', genre='{self.genre}', date='{self.date}', datetime='{self.datetime}', r_price={self.r_price}, p_price={self.p_price}, image_link='{self.image_link}', status='{self.status}')"
 
-    def __init__(self, v_id, name, genre, date, r_price, p_price, image_link):  # Modify __init__ to include image_link
+    def __init__(self, v_id, name, genre, date, datetime, r_price, p_price, image_link):  # Modify __init__ to include datetime and image_link
         self.v_id = v_id
         self.name = name
         self.genre = genre
         self.date = date
+        self.datetime = datetime  # Added datetime attribute
         self.r_price = r_price
         self.p_price = p_price
-        self.image_link = image_link
+        self.image_link = image_link 
 
     def create_tickets(self):
         venue = Venue.query.get(self.v_id)
@@ -160,7 +171,6 @@ class Event(db.Model):
             db.session.add_all(tickets)
 
 
-# creating Ticket table
         
 
 class Ticket(db.Model):
@@ -181,11 +191,10 @@ class Bid(db.Model):
     e_id=db.Column(db.Integer)
     u_id=db.Column(db.Integer)
 
-    def __init__(self,bid_amount,e_id,u_id,category):
+    def __init__(self,bid_amount,e_id,u_id):
         self.bid_amount=bid_amount
         self.e_id=e_id
         self.u_id=u_id        
-        self.category=category
 
 # initializing tables
     
@@ -199,15 +208,17 @@ with app.app_context():
 @app.route('/cevent')
 def index():
     image_link = "https://blackhattalent.com/wp-content/uploads/2023/07/sonu-nigam-ready-to-belt-out-new-ghazal-titled-yaad-01.jpg"
+    datetime_value = datetime(2024, 5, 15, 10, 0, 0)  # Manually specify the datetime
 
     event = Event(
-        v_id=1,
+        v_id=7,
         name='Example Event',
         genre='Example Genre',
-        date='2024-05-15',
+        date=datetime_value.date(),  # Assuming you want the date part of the datetime
+        datetime=datetime_value,  # Assign the datetime value
         r_price=20.0,
         p_price=30.0,
-        image_link=image_link  # Assign the image link
+        image_link=image_link
     )
     db.session.add(event)
     db.session.commit()
@@ -267,8 +278,40 @@ def get_event():
     } for event in events])
 
 
+@app.route('/no_auction',methods=['POST'])
+def no_auction():
+    data = request.json
+    t_id=data.get('t_id')
+    e_id=data.get('e_id')
+    u_id=data.get('u_id')
+    for i in t_id:
+        ticket = Ticket.query.filter_by(t_id=i).first()
+        ticket.bid_price=ticket.price
+        ticket.f_owner=u_id
+        bid=Bid(bid_amount=ticket.price,e_id=e_id,u_id=u_id,)
+        db.session.add(bid)
+    db.session.commit()
+    return jsonify({"message":"Ticket selected"})
+
+@app.route('/auction',methods=['POST'])
+def auction():
+    data=request.json
+    bid_amt=data.get('bid_amt')
+    e_id=data.get('e_id')
+    u_id=data.get('u_id')
+    bid=Bid.query.filter_by(e_id=e_id,u_id=u_id).order_by(asc(Bid.bid_amount)).first()
+    if bid:
+        if bid_amt>bid.bid_amount:
+            bid.bid_amount=bid_amt
+        else:
+            return jsonify({"message":"Bid amount less than previous bid"})
+    else:
+        bid=Bid(bid_amount=bid_amt,e_id=e_id,u_id=u_id)
+        db.session.add(bid)
+    db.session.commit()
+    return jsonify({"message": "Bid placed successfully"}), 200
+
 @app.route('/auction_result',methods=['POST'])
-#@login_required
 def get_auction_result():
     e_id=request.json['e_id']
     bids = Bid.query.filter_by(e_id=e_id).order_by(Bid.bid_amount.desc()).all()
@@ -277,6 +320,49 @@ def get_auction_result():
         bid_for={"b_id":bid.b_id,"bid_amount":bid.bid_amount,"e_id":bid.e_id,"u_id":bid.u_id}
         data.append(bid_for)
     return jsonify(data)
+
+def check_auction_end():
+    event=Event.query.all()
+    for i in event:
+        if i.status=="notcompleted":
+            i.status="completed"
+            print("Events at the beginning2:", i.status)
+            bid = Bid.query.filter_by(e_id=i.e_id).order_by(Bid.bid_amount.desc()).all()
+            ticket=Ticket.query.filter_by(e_id=i.e_id).order_by(Ticket.t_id.desc()).all()
+            bl=len(bid)
+            tl=len(ticket)
+            if bl>tl:
+                for j in range(tl):
+                    ticket[j].owner=bid[j].u_id
+                    ticket[j].bid_price=bid[j].bid_amt
+                db.session.commit()
+                bsum=0
+                asum=0
+                ticket2=Ticket.query.filter_by(e_id=i.e_id).all()
+                for j in ticket2:
+                    bsum+=j.price
+                    asum+=j.bid_price
+                diff=asum-bsum
+                cp=0.2*diff
+                refund=cp/tl
+                for j in ticket2:
+                    ticket2.refund=refund
+                db.session.commit()
+            else:
+                for j in ticket:
+                    if j.owner is not None:
+                        j.owner=j.f_owner
+        
+
+# datetime.now()>=i.datetime and 
+
+
+@app.route('/auction_end')
+def auction_end():
+    while True:
+        print("Running")
+        check_auction_end()
+        time.sleep(10)
 
 if __name__ == '__main__':
     app.run()

@@ -15,7 +15,6 @@ function DropdownMenu() {
       </button>
       {isOpen && (
         <div className="dropdown-menu">
-          <button>Edit Personal Details</button>
           <a href="/view_tickets">View Tickets</a>
           <a href="/">Logout</a>
         </div>
