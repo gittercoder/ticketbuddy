@@ -12,10 +12,11 @@ function View1() {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
+  const selectedEventId = localStorage.getItem("selectedEventId");
   useEffect(() => {
     // Fetch tickets based on e_id from backend
     axios
-      .get(`http://localhost:5000/api/tickets?e_id=${1}`)
+      .get(`http://localhost:5000/api/tickets?e_id=${selectedEventId}`)
       .then((response) => {
         setTickets(response.data);
       })

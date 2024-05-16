@@ -1,7 +1,7 @@
 import React from "react";
 import { totalPrice } from "./view1";
 
-let a = false;
+let a = !false;
 
 function TTypes(props) {
   const handleClick = () => {

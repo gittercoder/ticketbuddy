@@ -124,17 +124,19 @@ class Event(db.Model):
     date = db.Column(db.Date)
     r_price = db.Column(db.Float)
     p_price = db.Column(db.Float)
+    image_link = db.Column(db.String(255))  # New column for image link
 
     def __repr__(self):
-        return f"Event(e_id={self.e_id}, v_id={self.v_id}, name='{self.name}', genre='{self.genre}', date='{self.date}', r_price={self.r_price}, p_price={self.p_price})"
+        return f"Event(e_id={self.e_id}, v_id={self.v_id}, name='{self.name}', genre='{self.genre}', date='{self.date}', r_price={self.r_price}, p_price={self.p_price}, image_link='{self.image_link}')"
 
-    def __init__(self, v_id, name, genre, date, r_price, p_price):
+    def __init__(self, v_id, name, genre, date, r_price, p_price, image_link):  # Modify __init__ to include image_link
         self.v_id = v_id
         self.name = name
         self.genre = genre
         self.date = date
         self.r_price = r_price
         self.p_price = p_price
+        self.image_link = image_link
 
     def create_tickets(self):
         venue = Venue.query.get(self.v_id)
@@ -166,13 +168,24 @@ class Ticket(db.Model):
     e_id = db.Column(db.Integer)
     price = db.Column(db.Float)
     bid_price = db.Column(db.Float)
-    owner = db.Column(db.String(255))
-    f_owner = db.Column(db.String(255))
+    owner = db.Column(db.Integer)
+    f_owner = db.Column(db.Integer)
     category = db.Column(db.String(50))  
 
     def __repr__(self):
         return f"Ticket(t_id={self.t_id}, e_id={self.e_id}, price={self.price}, bid_price={self.bid_price}, owner='{self.owner}', f_owner='{self.f_owner}', category='{self.category}')"
     
+class Bid(db.Model):
+    b_id=db.Column(db.Integer, primary_key=True)
+    bid_amount=db.Column(db.Float)
+    e_id=db.Column(db.Integer)
+    u_id=db.Column(db.Integer)
+
+    def __init__(self,bid_amount,e_id,u_id,category):
+        self.bid_amount=bid_amount
+        self.e_id=e_id
+        self.u_id=u_id        
+        self.category=category
 
 # initializing tables
     
@@ -181,16 +194,26 @@ with app.app_context():
     db.create_all()
 
 
-# createing events and tickets
-    
+
 
 @app.route('/cevent')
 def index():
-    event = Event(v_id=1, name='Example Event', genre='Example Genre', date='2024-05-15', r_price=20.0, p_price=30.0)
+    image_link = "https://media.gq.com/photos/59132b29ee7e6447b1025d07/16:9/w_2560%2Cc_limit/gq-playboi-carti-lead.jpg"
+
+    event = Event(
+        v_id=1,
+        name='Example Event',
+        genre='Example Genre',
+        date='2024-05-15',
+        r_price=20.0,
+        p_price=30.0,
+        image_link=image_link  # Assign the image link
+    )
     db.session.add(event)
     db.session.commit()
 
     return 'Event created successfully'
+
 
 @event.listens_for(Event, 'after_insert')
 def event_after_insert(mapper, connection, target):
@@ -221,6 +244,31 @@ def get_tickets():
     ]
     return jsonify(ticket_data)
 
+# Route to fetch events
+@app.route('/api/events')
+def get_events():
+    events = Event.query.all()
+    return jsonify([{
+        'e_id': event.e_id,
+        'v_id': event.v_id,
+        'name': event.name,
+        'genre': event.genre,
+        'date': event.date.strftime('%Y-%m-%d'),
+        'r_price': event.r_price,
+        'p_price': event.p_price,
+        'image_link': event.image_link
+    } for event in events])
+
+@app.route('/auction_result',methods=['POST'])
+#@login_required
+def get_auction_result():
+    e_id=request.json['e_id']
+    bids = Bid.query.filter_by(e_id=e_id).order_by(Bid.bid_amount.desc()).all()
+    data=list()
+    for bid in bids:
+        bid_for={"b_id":bid.b_id,"bid_amount":bid.bid_amount,"e_id":bid.e_id,"u_id":bid.u_id}
+        data.append(bid_for)
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run()

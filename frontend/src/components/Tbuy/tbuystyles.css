@@ -32,3 +32,45 @@ h3 {
     display: none;
   }
 }
+
+/* Style for the bid class */
+.bid {
+  margin-bottom: 20px;
+}
+
+/* Style for the bidlist class */
+.bidlist {
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: 300px;
+  width: fit-content;
+  overflow: auto;
+}
+
+/* Style for the column names */
+.column {
+  display: inline-block;
+  width: 120px; /* Adjust as needed */
+  font-weight: bold;
+}
+
+/* Style for the details */
+.details {
+  display: flex;
+}
+
+/* Style for each column */
+.details .column {
+  flex: 1;
+}
+
+.xyz {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.xyz p {
+  margin-left: 3px;
+}

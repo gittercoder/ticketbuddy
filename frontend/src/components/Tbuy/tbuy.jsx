@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import Header from "../header";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Headert from "../headert";
 import Banner from "./banner";
 import Footer from "../footer";
 import View1 from "./view1";
@@ -14,13 +15,31 @@ function Tbuy() {
 
     // Cleanup function to remove styles when component is unmounted
     return () => {
-      removeStyles.then((module) => module.default && module.default.remove());
+      removeStyles.then((module) => module.default);
     };
   }, []);
+  const [tickets, setTickets] = useState([]);
+  const selectedEventId = localStorage.getItem("selectedEventId");
+  useEffect(() => {
+    // Fetch tickets based on e_id from backend
+    axios
+      .get(`http://localhost:5000/api/tickets?e_id=${selectedEventId}`)
+      .then((response) => {
+        setTickets(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching tickets:", error);
+      });
+  }, []);
+
+  // Check if all tickets have f_owner not null
+  const allTicketsHaveFOwner = tickets.every(
+    (ticket) => ticket.f_owner !== null
+  );
 
   return (
     <div>
-      <Header />
+      <Headert />
       <Banner
         name="Kanye West"
         genre="Rap"
@@ -28,7 +47,7 @@ function Tbuy() {
         date="20-05-2025"
       />
 
-      {a ? <View2 position={bidlist[0].position} /> : <View1 />}
+      {!allTicketsHaveFOwner ? <View1 /> : <View2 />}
 
       {/*<Footer year={new Date().getFullYear()} />*/}
     </div>
