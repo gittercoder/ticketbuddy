@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from "react";
 import "./home.css";
-import Header from "../header";
+import DropdownMenu from "./dropdown.jsx";
 import Event from "./event";
 import Footer from "../footer";
 
 const Home = () => {
+  const [searchQuery, setSearchQuery] = useState("");
   const [events, setEvents] = useState([]);
 
-  useEffect(() => {
-    // Fetch events from backend when component mounts
-    fetch("http://localhost:5000/api/events")
-      .then((response) => response.json())
-      .then((data) => setEvents(data))
-      .catch((error) => console.error("Error fetching events:", error));
-  }, []);
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/event?search=${searchQuery}`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const eventData = await response.json();
+      setEvents(eventData);
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
+  };
   useEffect(() => {
     // Add 'home' class to body when component mounts
     document.body.classList.add("home");
@@ -26,7 +35,22 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
+      <div>
+        <header>
+          <DropdownMenu />
+          <h1>TicketBuddy</h1>
+          <form onSubmit={handleSearch} className="pari">
+            <input
+              type="text"
+              id="search"
+              placeholder="Search for events"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button type="submit">Find Tickets</button>
+          </form>
+        </header>
+      </div>
       <section className="featured-events">
         <h2>Featured Events</h2>
         {events.map((event) => (

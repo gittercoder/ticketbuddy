@@ -4,7 +4,9 @@ function Headert() {
   return (
     <div>
       <header>
-        <h1>TicketBuddy</h1>
+        <a href="/home" class="mainheading">
+          TicketBuddy
+        </a>
       </header>
     </div>
   );

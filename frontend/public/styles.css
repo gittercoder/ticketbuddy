@@ -148,12 +148,17 @@ body {
 }
 
 .seat.selected {
-  background-color: green; /* Color for selected seats */
+  background-color: rgb(0, 116, 155); /* Color for selected seats */
+  color: white; /* Text color for selected seats */
+}
+
+.seat.selectedp {
+  background-color: rgb(182, 130, 0); /* Color for selected seats */
   color: white; /* Text color for selected seats */
 }
 
 .seat.premium {
-  background-color: yellow; /* Color for premium seats */
+  background-color: gold; /* Color for premium seats */
   color: black; /* Text color for premium seats */
 }
 

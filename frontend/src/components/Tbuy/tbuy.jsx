@@ -47,7 +47,7 @@ function Tbuy() {
         date="20-05-2025"
       />
 
-      {!allTicketsHaveFOwner ? <View1 /> : <View2 />}
+      {!!allTicketsHaveFOwner ? <View1 /> : <View2 />}
 
       {/*<Footer year={new Date().getFullYear()} />*/}
     </div>

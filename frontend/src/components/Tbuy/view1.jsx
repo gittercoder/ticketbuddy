@@ -87,7 +87,9 @@ function View1() {
           key={i}
           className={`seat ${isSelectable ? "selectable" : ""} ${
             isSelected ? "selected" : ""
-          } ${isPremium ? "premium" : ""} ${isBooked ? "booked" : ""}`}
+          } ${isPremium ? "premium" : ""} ${
+            isPremium && isSelected ? "premium selected" : ""
+          }  ${isBooked ? "booked" : ""}`}
           onClick={() => isSelectable && handleSeatSelection(i)}
         >
           {i}

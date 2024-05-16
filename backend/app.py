@@ -198,7 +198,7 @@ with app.app_context():
 
 @app.route('/cevent')
 def index():
-    image_link = "https://media.gq.com/photos/59132b29ee7e6447b1025d07/16:9/w_2560%2Cc_limit/gq-playboi-carti-lead.jpg"
+    image_link = "https://blackhattalent.com/wp-content/uploads/2023/07/sonu-nigam-ready-to-belt-out-new-ghazal-titled-yaad-01.jpg"
 
     event = Event(
         v_id=1,
@@ -245,9 +245,16 @@ def get_tickets():
     return jsonify(ticket_data)
 
 # Route to fetch events
-@app.route('/api/events')
-def get_events():
-    events = Event.query.all()
+@app.route('/api/event')
+def get_event():
+    search_query = request.args.get('search')
+    if search_query:
+        # Perform search based on the search query
+        events = Event.query.filter(Event.name.ilike(f'%{search_query}%')).all()
+    else:
+        # If no search query is provided, return all events
+        events = Event.query.all()
+
     return jsonify([{
         'e_id': event.e_id,
         'v_id': event.v_id,
@@ -258,6 +265,7 @@ def get_events():
         'p_price': event.p_price,
         'image_link': event.image_link
     } for event in events])
+
 
 @app.route('/auction_result',methods=['POST'])
 #@login_required

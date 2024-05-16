@@ -36,3 +36,39 @@
     transform: rotate(360deg);
   }
 }
+
+.your_tickets {
+  background-color: #4caf50;
+  width: 45%;
+  height: fit-content;
+  margin-top: 5px;
+}
+
+.ticket_info {
+  background-color: #2c3e50;
+  width: 100%;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.ticket_info p {
+  margin-right: 20px;
+  color: #f0f0f0;
+}
+
+.ticket_info button {
+  margin-left: 20px;
+}
+
+.mainheading {
+  background-color: #2c3e50;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2em;
+  font-weight: 660;
+}

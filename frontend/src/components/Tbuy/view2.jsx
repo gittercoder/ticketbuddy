@@ -10,7 +10,7 @@ let bidend = true;
 
 function View2(props) {
   const [auctionResults, setAuctionResults] = useState([]);
-  const [bidamt, setBidamt] = useState("");
+  const [bidamt, setBidamt] = useState("0");
 
   const selectedEventId = localStorage.getItem("selectedEventId");
   console.log(selectedEventId);
