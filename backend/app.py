@@ -110,7 +110,7 @@ def login():
 
 
 class Venue(db.Model):
-    v_id = db.Column(db.Integer, primary_key=True)
+    v_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     r_capacity = db.Column(db.Integer)
     p_capacity = db.Column(db.Integer)
     location = db.Column(db.String(255))
@@ -122,6 +122,27 @@ class Venue(db.Model):
         self.r_capacity = r_capacity
         self.p_capacity = p_capacity
         self.location = location
+
+
+
+# Route to get sample values
+@app.route('/cvenues', methods=['GET'])
+def create_sample_venues():
+    # Insert sample values into the Venue table
+    sample_venues = [
+        Venue(r_capacity=100, p_capacity=50, location='Sample Location 1'),
+        Venue(r_capacity=150, p_capacity=70, location='Sample Location 2'),
+        Venue(r_capacity=120, p_capacity=60, location='Sample Location 3'),
+        Venue(r_capacity=80, p_capacity=40, location='Sample Location 4'),
+        Venue(r_capacity=200, p_capacity=100, location='Sample Location 5'),
+        Venue(r_capacity=90, p_capacity=45, location='Sample Location 6')
+    ]
+    db.session.add_all(sample_venues)
+    db.session.commit()
+
+    return "Sample venues inserted successfully!"
+
+
 
 
 # creating Event table
@@ -209,25 +230,76 @@ with app.app_context():
 
 
 
-@app.route('/cevent')
-def index():
-    image_link = "https://blackhattalent.com/wp-content/uploads/2023/07/sonu-nigam-ready-to-belt-out-new-ghazal-titled-yaad-01.jpg"
-    datetime_value = datetime(2024, 5, 19, 10, 0, 0)  # Manually specify the datetime
-
-    event = Event(
-        v_id=7,
-        name='Example Event',
-        genre='Example Genre',
-        date=datetime_value.date(),  # Assuming you want the date part of the datetime
-        datetime=datetime_value,  # Assign the datetime value
-        r_price=20.0,
-        p_price=30.0,
-        image_link=image_link
-    )
-    db.session.add(event)
+@app.route('/cevent', methods=['GET'])
+def create_sample_events():
+    # Insert sample values into the Event table
+    sample_events = [
+        Event(
+            v_id=2,
+            name='Sonu Nigam',
+            genre='Example Genre 1',
+            date=datetime(2024, 5, 19).date(),  # Assuming you want the date part of the datetime
+            datetime=datetime(2024, 5, 19, 10, 0, 0),  # Assign the datetime value
+            r_price=20.0,
+            p_price=30.0,
+            image_link="https://blackhattalent.com/wp-content/uploads/2023/07/sonu-nigam-ready-to-belt-out-new-ghazal-titled-yaad-01.jpg"
+        ),
+        Event(
+            v_id=3,
+            name='Erykah Badu',
+            genre='Example Genre 2',
+            date=datetime(2024, 5, 20).date(),
+            datetime=datetime(2024, 5, 20, 10, 0, 0),
+            r_price=25.0,
+            p_price=35.0,
+            image_link="https://www.rollingstone.com/wp-content/uploads/2024/02/stray-kids-topline.jpg?w=1024"
+        ),
+        Event(
+            v_id=2,
+            name='Stray Kids',
+            genre='Example Genre 1',
+            date=datetime(2024, 5, 19).date(),  # Assuming you want the date part of the datetime
+            datetime=datetime(2024, 6, 19, 10, 0, 0),  # Assign the datetime value
+            r_price=20.0,
+            p_price=30.0,
+            image_link="https://www.rollingstone.com/wp-content/uploads/2024/02/Erykah-Badu-25-stylish.jpg?w=1024"
+        ),
+        Event(
+            v_id=3,
+            name='Lil Uzi Vert',
+            genre='Example Genre 2',
+            date=datetime(2024, 5, 26).date(),
+            datetime=datetime(2024, 5, 20, 10, 0, 0),
+            r_price=25.0,
+            p_price=35.0,
+            image_link="https://www.rollingstone.com/wp-content/uploads/2024/02/lil-uzi-25-stylish.jpg?w=1024"
+        ),
+        Event(
+            v_id=2,
+            name='Troye Sivan',
+            genre='Example Genre 1',
+            date=datetime(2024, 5, 29).date(),  # Assuming you want the date part of the datetime
+            datetime=datetime(2024, 5, 19, 10, 0, 0),  # Assign the datetime value
+            r_price=20.0,
+            p_price=30.0,
+            image_link="https://www.rollingstone.com/wp-content/uploads/2024/02/troy-sivan-25-stylish.jpg?w=1024"
+        ),
+        Event(
+            v_id=3,
+            name='070 Shake',
+            genre='Example Genre 2',
+            date=datetime(2024, 5, 25).date(),
+            datetime=datetime(2024, 5, 20, 10, 0, 0),
+            r_price=25.0,
+            p_price=35.0,
+            image_link="https://www.rollingstone.com/wp-content/uploads/2024/02/070-25-stylish.jpg?w=1024"
+        )
+        # Add more events here...
+    ]
+    db.session.add_all(sample_events)
     db.session.commit()
 
-    return 'Event created successfully'
+    return "Sample events inserted successfully!"
 
 
 @event.listens_for(Event, 'after_insert')

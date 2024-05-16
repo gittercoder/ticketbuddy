@@ -59,30 +59,7 @@ function Card2({ onNextClick }) {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <div className="verification-container">
-          <div className="verification-radio">
-            <input
-              type="radio"
-              id="phone-verification"
-              name="verification"
-              value="phone"
-              checked={verification === "phone"}
-              onChange={() => setVerification("phone")}
-            />
-            <label htmlFor="phone-verification">Phone Verification</label>
-          </div>
-          <div className="verification-radio">
-            <input
-              type="radio"
-              id="email-verification"
-              name="verification"
-              value="email"
-              checked={verification === "email"}
-              onChange={() => setVerification("email")}
-            />
-            <label htmlFor="email-verification">Email Verification</label>
-          </div>
-        </div>
+
         <br></br>
         <label htmlFor="age">Age:</label>
         <input

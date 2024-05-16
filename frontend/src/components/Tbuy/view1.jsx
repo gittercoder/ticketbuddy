@@ -113,7 +113,7 @@ function View1() {
           } ${isBooked ? "booked" : ""}`}
           style={{
             backgroundColor:
-              isPremium && isSelected ? "rgb(175, 163, 132)" : "",
+              isPremium && isSelected ? "rgb(214, 194, 142)" : "",
           }}
           onClick={() => isSelectable && handleSeatSelection(i)}
         >

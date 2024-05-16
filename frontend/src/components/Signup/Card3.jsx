@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Card3({ onNextClick }) {
+  const navigate = useNavigate(); // Initialize useNavigate hook
   const username = localStorage.getItem("username");
   const email = localStorage.getItem("email");
   const [otp, setOTP] = useState("");
@@ -14,26 +16,29 @@ function Card3({ onNextClick }) {
         email,
         otp,
       });
-      onNextClick();
+      if (response) {
+        // Check if response is ok
+        navigate("/home"); // Navigate to /home
+      }
     } catch (error) {
       console.error("Error:", error);
     }
   };
   return (
-    <div class="login-container">
+    <div className="login-container">
       <h2>Sign Up</h2>
       <h3>An O.T.P. has been sent to your phone number/email address.</h3>
       <form onSubmit={handleNextClick}>
         <input
           type="text"
           className="input-field"
-          placeholder="Name"
-          name="Enter One Time Password"
+          placeholder="One Time Password"
+          name="otp"
           value={otp}
           onChange={(e) => setOTP(e.target.value)}
           required
         />
-        <button type="submit" class="login-button">
+        <button type="submit" className="login-button">
           Finish
         </button>
       </form>
