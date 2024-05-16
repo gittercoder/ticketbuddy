@@ -16,6 +16,7 @@ function DropdownMenu() {
       {isOpen && (
         <div className="dropdown-menu">
           <a href="/view_tickets">View Tickets</a>
+          <a href="/view_compensations">View Compensations</a>
           <a href="/">Logout</a>
         </div>
       )}

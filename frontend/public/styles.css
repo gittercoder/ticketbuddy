@@ -153,7 +153,7 @@ body {
 }
 
 .seat.selectedp {
-  background-color: rgb(182, 130, 0); /* Color for selected seats */
+  background-color: rgb(175, 163, 132); /* Color for selected seats */
   color: white; /* Text color for selected seats */
 }
 

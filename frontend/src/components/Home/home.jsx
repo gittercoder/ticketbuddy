@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./home.css";
 import DropdownMenu from "./dropdown.jsx";
 import Event from "./event";
-import Footer from "../footer";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");

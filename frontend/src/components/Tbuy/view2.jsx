@@ -53,6 +53,7 @@ function View2(props) {
     } catch (error) {
       console.error("Error:", error);
     }
+    window.location.reload();
   };
 
   return (

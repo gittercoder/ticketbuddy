@@ -108,9 +108,13 @@ function View1() {
           key={i}
           className={`seat ${isSelectable ? "selectable" : ""} ${
             isSelected ? "selected" : ""
-          } ${isPremium ? "premium" : ""} ${
-            isPremium && isSelected ? "premium selected" : ""
-          }  ${isBooked ? "booked" : ""}`}
+          } ${isPremium && isSelectable ? "premium" : ""} ${
+            isPremium && isSelected ? "selectedp" : ""
+          } ${isBooked ? "booked" : ""}`}
+          style={{
+            backgroundColor:
+              isPremium && isSelected ? "rgb(175, 163, 132)" : "",
+          }}
           onClick={() => isSelectable && handleSeatSelection(i)}
         >
           {i + 1 - lowestTId}

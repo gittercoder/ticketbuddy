@@ -39,12 +39,7 @@ function Tbuy() {
   return (
     <div>
       <Headert />
-      <Banner
-        name="Kanye West"
-        genre="Rap"
-        img="https://images-cdn.ubuy.co.in/6523b2cba482e55f3222f1f6-ubuy-online-shopping.jpg"
-        date="20-05-2025"
-      />
+      <Banner />
 
       {!allTicketsHaveFOwner ? <View1 /> : <View2 />}
 

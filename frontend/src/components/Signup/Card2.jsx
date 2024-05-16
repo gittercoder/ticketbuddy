@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function Card2({ onNextClick }) {
+  const username = localStorage.getItem("username");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -8,13 +10,23 @@ function Card2({ onNextClick }) {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
 
-  const handleNextClick = (event) => {
-    event.preventDefault(); // Prevent the form from submitting
-
-    // Validate the form data here if needed
-
-    // Proceed to the next step (Card3) or perform any other action
-    onNextClick();
+  const handleNextClick = async (event) => {
+    event.preventDefault();
+    try {
+      // Send POST request to backend API
+      const response = await axios.post("http://localhost:5000/signup", {
+        username,
+        name,
+        phone,
+        email,
+        age,
+        gender,
+      });
+      localStorage.setItem("email", email);
+      onNextClick();
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (

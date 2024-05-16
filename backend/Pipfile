@@ -11,6 +11,7 @@ python-dotenv = "*"
 flask-cors = "*"
 flask-login = "*"
 flask-bcrypt = "*"
+flask-mail = "*"
 
 [dev-packages]
 
