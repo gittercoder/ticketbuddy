@@ -1,64 +1,86 @@
-# ticketbuddy
- 
-1. README.md Overview
-Start with an overview of your project, its purpose, and what technologies it uses. Briefly introduce React, Flask, PostgreSQL, and any other key components.
+<img width="100%" alt="Screenshot 2024-05-20 at 11 43 04 PM" src="https://github.com/Vijaykv5/Unigram/assets/94985341/69e935f2-fec7-45ab-9a46-a027b363d790">
 
-2. Prerequisites
-List the prerequisites for running your application:
 
-Node.js and npm (for React)
-Python and pip (for Flask)
-PostgreSQL database server
-3. Setting Up the Backend (Flask)
-3.1 Installation Instructions
-Provide instructions on setting up the backend:
 
-bash
-Copy code
-pip install Flask SQLAlchemy Flask-Cors Flask-Mail Flask-Bcrypt
-Explain briefly what each package (Flask, SQLAlchemy, Flask-Cors, Flask-Mail, Flask-Bcrypt) does if necessary.
 
-3.2 Configuring Flask Application
-Create a requirements.txt file and include the necessary packages:
+# UNIGRAM
+A closed platform for college students to share their thoughts, ideas, and projects. It includes features such as User Authentication, Real-time chats, posts and a Admin Dashboard for managing posts and channels. 
 
-plaintext
-Copy code
-Flask
-Flask-SQLAlchemy
-Flask-Cors
-Flask-Mail
-Flask-Bcrypt
-3.3 Setting Up the Database
-Explain how to set up PostgreSQL and create a database for your application.
+## Users 
 
-3.4 Running the Flask Server
-Provide instructions for running the Flask server:
 
-bash
-Copy code
-python app.py
-4. Setting Up the Frontend (React)
-4.1 Installation Instructions
-Provide instructions on setting up the frontend:
+https://github.com/Vijaykv5/Unigram/assets/94985341/158917b7-385f-4d2c-acb2-690f46a1d08c
 
-bash
-Copy code
+
+
+## Admin
+
+https://github.com/Vijaykv5/Unigram/assets/94985341/e3b69a31-6545-45ae-87c4-b18c586d235a
+
+
+## Installation Guide
+
+### Requirements
+- [Nodejs](https://nodejs.org/en/download)
+- [Mongodb](https://www.mongodb.com/docs/manual/administration/install-community/)
+
+Both should be installed and make sure mongodb is running.
+### Installation
+Fork this repo : https://github.com/Vijaykv5/Unigram
+#### First Method
+```shell
+git clone https://github.com/your-user-name/Unigram
+cd Unigram
+```
+Now Create an env file .env for your Mongodb String
+```shell
+cd server
+export MONGODB_URL="<Your-MongoDb-String>"
+cd ..
+```
+
+Now install the dependencies
+```shell
+cd client
 npm install
-4.2 Running the React Development Server
-Explain how to start the React development server:
+cd ..
+cd server
+npm install
+```
+We are almost done, Now just start the development server.
 
-bash
-Copy code
+For Frontend.
+```shell
+cd client
 npm start
-5. Setting Up Dummy Data with Postman
-5.1 Endpoint for Dummy Data
-Describe an endpoint in your Flask app (/cevent1 for example) that accepts dummy data.
+```
+For Backend.
 
-5.2 Using Postman
-Provide steps on how to use Postman to send requests to the /cevent1 endpoint and populate dummy data in your database.
+Open another terminal in folder, Also make sure mongodb is running in background.
+```shell
+cd server
+npm start
+```
+Done! Now open localhost:5173 in your browser.
+<br/>
+You can see your frontend running sucessfully!
 
-6. Complete Example
-Provide a complete example of how to integrate the frontend, backend, and database setup. You can include snippets of code for key configurations or setups.
+#### Second Method
+- This method requires docker and docker-compose to be installed in your system.
+- Make sure you are in the root of your project and run the following command.
 
-7. Conclusion
-Summarize the key points of your tutorial and encourage users to explore further.
+```shell
+docker compose build --no-cache
+```
+after the build is complete run the containers using the following command
+```shell
+docker compose up
+```
+now open localhost:5173 in your browser.
+
+
+# Contributions are welcome! 
+
+Please create and work over the issues if you would love to contribute to this project.
+
+Happy coding ⭐
