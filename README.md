@@ -1,7 +1,7 @@
 
 ![dy](https://github.com/gittercoder/ticketbuddy/assets/133194085/5cc026b4-d86a-4d5d-9566-7376088376ef)
 
-# TICKETBUDDY
+
 A closed platform for college students to share their thoughts, ideas, and projects. It includes features such as User Authentication, Real-time chats, posts and a Admin Dashboard for managing posts and channels. 
 
 ## APP DEMO
