@@ -1,5 +1,6 @@
 
-https://github.com/gittercoder/ticketbuddy/assets/133194085/ba51ac52-9f44-453a-9f25-9d3622579c60
+
+![tklogo](https://github.com/gittercoder/ticketbuddy/assets/133194085/2acca3a2-c93b-488e-ba1e-e1add6c96788)
 
 
 A closed platform for college students to share their thoughts, ideas, and projects. It includes features such as User Authentication, Real-time chats, posts and a Admin Dashboard for managing posts and channels. 
