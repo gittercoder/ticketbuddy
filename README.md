@@ -7,7 +7,10 @@ A closed platform for college students to share their thoughts, ideas, and proje
 ## APP DEMO
 
 
-https://github.com/Vijaykv5/Unigram/assets/94985341/158917b7-385f-4d2c-acb2-690f46a1d08c
+
+https://github.com/gittercoder/ticketbuddy/assets/133194085/5a7b5499-1b43-4312-a3c5-1519a6de6469
+
+
 
 
 
