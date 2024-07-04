@@ -1,0 +1,5 @@
+Flask
+Flask-SQLAlchemy
+Flask-Cors
+Flask-Mail
+Flask-Bcrypt
