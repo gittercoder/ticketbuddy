@@ -11,7 +11,7 @@ from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:super@localhost/ticketbuddy'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
 app.config['SECRET_KEY']='secretkey'
 db = SQLAlchemy(app)
 CORS(app)
