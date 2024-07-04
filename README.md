@@ -1,7 +1,5 @@
 
-![2024-07-04 15_27_33-Free Logo Maker - Get Custom Logo Designs in Minutes _ Looka](https://github.com/gittercoder/ticketbuddy/assets/133194085/b13b6f12-4b7c-446a-a126-3b876953129b)
-
-
+![dy](https://github.com/gittercoder/ticketbuddy/assets/133194085/5cc026b4-d86a-4d5d-9566-7376088376ef)
 
 # UNIGRAM
 A closed platform for college students to share their thoughts, ideas, and projects. It includes features such as User Authentication, Real-time chats, posts and a Admin Dashboard for managing posts and channels. 
