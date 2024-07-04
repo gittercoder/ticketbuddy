@@ -1,5 +1,5 @@
-<img width="100%" alt="Screenshot 2024-05-20 at 11 43 04 PM" src="https://github.com/Vijaykv5/Unigram/assets/94985341/69e935f2-fec7-45ab-9a46-a027b363d790">
 
+![2024-07-04 15_27_33-Free Logo Maker - Get Custom Logo Designs in Minutes _ Looka](https://github.com/gittercoder/ticketbuddy/assets/133194085/b13b6f12-4b7c-446a-a126-3b876953129b)
 
 
 
