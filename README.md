@@ -22,66 +22,48 @@ https://github.com/gittercoder/ticketbuddy/assets/133194085/c5a9ce7d-05ca-44d7-9
 ## Installation Guide
 
 ### Requirements
-- [Nodejs](https://nodejs.org/en/download)
-- [Mongodb](https://www.mongodb.com/docs/manual/administration/install-community/)
+- [Node.js](https://nodejs.org/) (make sure npm is also installed)
+- [Python](https://www.python.org/) (for Flask)
+- [PostgreSQL](https://www.postgresql.org/) database server
 
 Both should be installed and make sure mongodb is running.
 ### Installation
-Fork this repo : https://github.com/Vijaykv5/Unigram
-#### First Method
+Fork this repo : https://github.com/gittercoder/ticketbuddy
+
 ```shell
-git clone https://github.com/your-user-name/Unigram
+git clone https://github.com/gittercoder/ticketbuddy
 cd Unigram
 ```
-Now Create an env file .env for your Mongodb String
+#### FRONTEND
+Navigate to frontend
 ```shell
-cd server
-export MONGODB_URL="<Your-MongoDb-String>"
-cd ..
-```
-
-Now install the dependencies
-```shell
-cd client
-npm install
-cd ..
-cd server
-npm install
-```
-We are almost done, Now just start the development server.
-
-For Frontend.
-```shell
-cd client
+cd frontend
 npm start
 ```
-For Backend.
 
-Open another terminal in folder, Also make sure mongodb is running in background.
+#### BACKEND
+Navigate to backend in another console
 ```shell
-cd server
-npm start
+cd backend
 ```
-Done! Now open localhost:5173 in your browser.
+- Connecting to database
+In line 14 of app.py, change username, password and dbname of postgresql to your own.
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
+
+- Install dependencies and run
+```shell
+pip install -r requirements.txt
+flask run
+```
+
+open http://localhost:3000  in your browser to access the website.
 <br/>
-You can see your frontend running sucessfully!
-
-#### Second Method
-- This method requires docker and docker-compose to be installed in your system.
-- Make sure you are in the root of your project and run the following command.
-
-```shell
-docker compose build --no-cache
-```
-after the build is complete run the containers using the following command
-```shell
-docker compose up
-```
-now open localhost:5173 in your browser.
 
 
-# Contributions are welcome! 
 
-Please create and work over the issues if you would love to contribute to this project.
 
-Happy coding ⭐
+## Contributions
+
+Contributions are welcome! Feel free to create and work on issues to develop this project.
+
+Happy coding and thank you for contributing! 
