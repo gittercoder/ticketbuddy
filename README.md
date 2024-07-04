@@ -1,8 +1,7 @@
 
 
 
-https://github.com/gittercoder/ticketbuddy/assets/133194085/5fb95095-3b52-4e93-bb1b-565b7aa0bb90
-
+![tklogo](https://github.com/gittercoder/ticketbuddy/assets/133194085/68cf593e-8eeb-4a22-93bc-676a73e3c647)
 
 TicketBuddy provides a dynamic platform for entities to sell tickets to their events, with a compensation mechanism that allows individuals to potentially profit from its auctioning system. It facilitates event ticket allocation, bidding, and returns, offering real-time bid processing, efficient ticket return management, and a seamless user experience.
 
@@ -11,7 +10,7 @@ TicketBuddy provides a dynamic platform for entities to sell tickets to their ev
 
 
 
-https://github.com/gittercoder/ticketbuddy/assets/133194085/c5a9ce7d-05ca-44d7-9439-c88a763a6240
+https://github.com/gittercoder/ticketbuddy/assets/133194085/4dd1958d-3510-4de8-a863-ee3b09cae525
 
 
 
