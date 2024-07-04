@@ -8,7 +8,10 @@ A closed platform for college students to share their thoughts, ideas, and proje
 
 
 
-https://github.com/gittercoder/ticketbuddy/assets/133194085/5a7b5499-1b43-4312-a3c5-1519a6de6469
+
+
+https://github.com/gittercoder/ticketbuddy/assets/133194085/c5a9ce7d-05ca-44d7-9439-c88a763a6240
+
 
 
 
