@@ -42,11 +42,11 @@ cd backend
 ```
 - Connecting to database:<br/><br/>
 First, make sure PostgreSQL is running on your system.<br/><br/>
-In line 14 of `app.py`, change the username, password, and database name(dbname) to your own PostgreSQL credentials.<br/>
+Then, in line 14 of `app.py`, change the username, password, and database name(dbname) to your own PostgreSQL credentials.<br/>
 ```shell
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
 ```
-- Install dependencies and run:
+- Install dependencies and start the backend:
 ```shell
 pip install -r requirements.txt
 flask run
