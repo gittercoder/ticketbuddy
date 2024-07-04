@@ -46,7 +46,7 @@ Navigate to backend in another console
 ```shell
 cd backend
 ```
-- Connecting to database
+- Connecting to database<br/>
 In line 14 of app.py, change username, password and dbname of postgresql to your own.
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
 
