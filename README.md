@@ -1,5 +1,5 @@
 
-<img src="https://github.com/gittercoder/ticketbuddy/assets/133194085/1712eb76-8c1b-4d73-8db0-2cdc273afa5b" alt="Description" width="500" height="200">
+(https://github.com/gittercoder/ticketbuddy/assets/133194085/ba51ac52-9f44-453a-9f25-9d3622579c60)
 
 
 A closed platform for college students to share their thoughts, ideas, and projects. It includes features such as User Authentication, Real-time chats, posts and a Admin Dashboard for managing posts and channels. 
