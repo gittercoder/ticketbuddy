@@ -32,7 +32,7 @@ Fork this repo : https://github.com/gittercoder/ticketbuddy
 
 ```shell
 git clone https://github.com/gittercoder/ticketbuddy
-cd Unigram
+cd ticketbuddy
 ```
 #### FRONTEND
 Navigate to frontend
