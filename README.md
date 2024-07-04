@@ -20,7 +20,7 @@ https://github.com/gittercoder/ticketbuddy/assets/133194085/c5a9ce7d-05ca-44d7-9
 - [Python](https://www.python.org/) (for Flask)
 - [PostgreSQL](https://www.postgresql.org/) database server
 
-Both should be installed and make sure mongodb is running.
+
 ### Installation
 Fork this repo : https://github.com/gittercoder/ticketbuddy
 
@@ -41,6 +41,7 @@ Navigate to backend in another console:
 cd backend
 ```
 - Connecting to database:<br/>
+First, make sure PostgreSQL is running on your system.<br/>
 In line 14 of app.py, change username, password and dbname of postgresql to your own.<br/>
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
 
@@ -53,9 +54,9 @@ flask run
 open http://localhost:3000  in your browser to access the website.
 <br/>
 
-#### DATABASE
+#### Inserting Dummy Events
 
-To display events you can insert dummy events to the database using get request through postman or browser to the below url:<br>
+To display events you can insert dummy events to the database after starting the backend, using get request through postman or browser to the below url:<br>
 http://127.0.0.1:5000/cevent1
 
 
