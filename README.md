@@ -4,8 +4,6 @@
 TicketBuddy provides a dynamic platform for entities to sell tickets to their events, with a compensation mechanism that allows individuals to potentially profit from its auctioning system. It facilitates event ticket allocation, bidding, and returns, offering real-time bid processing, efficient ticket return management, and a seamless user experience.
 
 
-A closed platform for college students to share their thoughts, ideas, and projects. It includes features such as User Authentication, Real-time chats, posts and a Admin Dashboard for managing posts and channels. 
-
 ## APP DEMO
 
 
