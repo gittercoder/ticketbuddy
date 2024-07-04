@@ -45,7 +45,7 @@ First, make sure PostgreSQL is running on your system.<br/><br/>
 Then, in line 14 of `app.py`, change the username, password, and database name(dbname) to your own PostgreSQL credentials.<br/>
 ```shell
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
-```
+```  
 - Install dependencies and start the backend:
 ```shell
 pip install -r requirements.txt
@@ -57,7 +57,9 @@ open http://localhost:3000  in your browser to access the website.
 
 #### Inserting Dummy Events
 
-To display events you can insert dummy events to the database after starting the backend, using get request through postman or browser to the below url:<br>
+Create dummy venues to the database after starting the backend, using get request through postman or browser to the below url:<br>
+http://127.0.0.1:5000/cvenues<br><br>
+To display events you can insert dummy events to the database, using get request through postman or browser to the below url:<br>
 http://127.0.0.1:5000/cevent1
 
 
