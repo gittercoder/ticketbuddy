@@ -18,7 +18,7 @@ https://github.com/gittercoder/ticketbuddy/assets/133194085/c5a9ce7d-05ca-44d7-9
 ### Requirements
 - [Node.js](https://nodejs.org/) (make sure npm is also installed)
 - [Python](https://www.python.org/) (for Flask)
-- [PostgreSQL](https://www.postgresql.org/) database server
+- [PostgreSQL](https://www.postgresql.org/) (database server)
 
 
 ### Installation
@@ -41,10 +41,11 @@ Navigate to backend in another console:
 cd backend
 ```
 - Connecting to database:<br/>
-First, make sure PostgreSQL is running on your system.<br/>
+First, make sure PostgreSQL is running on your system.<br/><br/>
 In line 14 of app.py, change username, password and dbname of postgresql to your own.<br/>
+```shell
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
-
+```
 - Install dependencies and run:
 ```shell
 pip install -r requirements.txt
