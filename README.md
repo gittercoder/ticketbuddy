@@ -1,6 +1,7 @@
 
 ![tklogo](https://github.com/gittercoder/ticketbuddy/assets/133194085/089f2fbd-d018-4d01-a48e-40b867b9ec05)
 
+TicketBuddy provides a dynamic platform for entities to sell tickets to their events, with a compensation mechanism that allows individuals to potentially profit from its auctioning system. It facilitates event ticket allocation, bidding, and returns, offering real-time bid processing, efficient ticket return management, and a seamless user experience.
 
 
 A closed platform for college students to share their thoughts, ideas, and projects. It includes features such as User Authentication, Real-time chats, posts and a Admin Dashboard for managing posts and channels. 
@@ -9,12 +10,7 @@ A closed platform for college students to share their thoughts, ideas, and proje
 
 
 
-
-
 https://github.com/gittercoder/ticketbuddy/assets/133194085/c5a9ce7d-05ca-44d7-9439-c88a763a6240
-
-
-
 
 
 
@@ -42,15 +38,15 @@ npm start
 ```
 
 #### BACKEND
-Navigate to backend in another console
+Navigate to backend in another console:
 ```shell
 cd backend
 ```
-- Connecting to database<br/>
+- Connecting to database:<br/>
 In line 14 of app.py, change username, password and dbname of postgresql to your own.<br/>
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
 
-- Install dependencies and run
+- Install dependencies and run:
 ```shell
 pip install -r requirements.txt
 flask run
@@ -59,6 +55,10 @@ flask run
 open http://localhost:3000  in your browser to access the website.
 <br/>
 
+#### DATABASE
+
+To display events you can insert dummy events to the database using get request through postman or browser to the below url:<br>
+http://127.0.0.1:5000/cevent1
 
 
 
