@@ -1,5 +1,5 @@
 
-![2024-07-04 15_26_04-Free Logo Maker - Get Custom Logo Designs in Minutes _ Looka](https://github.com/gittercoder/ticketbuddy/assets/133194085/1712eb76-8c1b-4d73-8db0-2cdc273afa5b)
+<img src="https://github.com/gittercoder/ticketbuddy/assets/133194085/1712eb76-8c1b-4d73-8db0-2cdc273afa5b" alt="Description" width="800">
 
 
 A closed platform for college students to share their thoughts, ideas, and projects. It includes features such as User Authentication, Real-time chats, posts and a Admin Dashboard for managing posts and channels. 
